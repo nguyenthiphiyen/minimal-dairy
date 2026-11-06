@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Minimal Dairy</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Nunito:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#FFFEFA;--card:#FFF9EF;--y:#F8E7A1;--y2:#FFF0B8;--cream:#F7F1E5;--ink:#45433E;--mut:#8a867c;--sage:#b9c9ae;--peach:#f6d5c4;--sh:0 4px 18px rgba(69,67,62,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#2a2926;--card:#35332f;--cream:#403d37;--ink:#f1ece0;--mut:#b3aea1;--sh:0 4px 18px rgba(0,0,0,.3)}}
+:root[data-theme=dark]{--bg:#2a2926;--card:#35332f;--cream:#403d37;--ink:#f1ece0;--mut:#b3aea1;--sh:0 4px 18px rgba(0,0,0,.3)}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Nunito,system-ui,sans-serif;display:flex}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0}
+nav{width:210px;padding:22px 14px;background:var(--card);display:flex;flex-direction:column;gap:4px;flex:none;overflow:auto}
+nav b{font:600 22px Fraunces,serif;padding:0 10px 14px}
+nav a{padding:10px 12px;border-radius:14px;color:var(--ink);text-decoration:none;cursor:pointer;white-space:nowrap}
+nav a.on,nav a:hover{background:var(--y)}nav a.on{color:#45433E}
+main{flex:1;overflow:auto;padding:28px clamp(16px,4vw,44px) 110px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.card{background:var(--card);border-radius:20px;box-shadow:var(--sh);padding:16px}
+.btn{background:var(--y);color:#45433E;border:0;border-radius:14px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}
+.btn.g{background:var(--cream);color:var(--ink)}.btn.d{background:var(--peach);color:#45433E}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--cream);border:0;border-radius:14px;padding:10px 12px;width:100%;margin:4px 0 12px}
+textarea{min-height:90px}label{font-size:13px;color:var(--mut);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.mas{columns:220px;column-gap:14px}.mas .card{break-inside:avoid;margin-bottom:14px;padding:0;overflow:hidden}
+.mas img,.cov{width:100%;display:block}.pad{padding:12px 14px}
+.cov{aspect-ratio:2/3;object-fit:cover;border-radius:14px;background:var(--y2)}
+.mut{color:var(--mut);font-size:13px}.tag{background:var(--y2);color:#45433E;border-radius:10px;padding:1px 8px;font-size:12px;margin-right:4px}
+.pg{height:6px;background:var(--cream);border-radius:6px;overflow:hidden;margin:6px 0}.pg i{display:block;height:100%;background:var(--sage)}
+.row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--cream)}
+.row.done span{text-decoration:line-through;opacity:.5}.row input{width:auto;margin:0}.row span{flex:1;cursor:pointer}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.chips .btn{padding:6px 12px}
+.fab{position:fixed;right:20px;bottom:24px;width:56px;height:56px;border-radius:50%;font-size:28px;box-shadow:var(--sh);z-index:5}
+#m{position:fixed;inset:0;background:rgba(40,38,34,.45);display:none;z-index:9;align-items:center;justify-content:center;padding:14px}
+#m.on{display:flex}#m .box{background:var(--bg);border-radius:22px;max-width:640px;width:100%;max-height:92vh;overflow:auto;padding:20px}
+.rich{min-height:160px;background:var(--cream);border-radius:14px;padding:12px;margin:4px 0 12px;outline:0}
+.rich img{max-width:100%}.tb{display:flex;gap:6px}.tb button{padding:4px 12px}
+.th{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.th div{position:relative}.th img{width:84px;height:84px;object-fit:cover;border-radius:12px}
+.th b{position:absolute;top:-6px;right:-6px;background:var(--peach);color:#45433E;border-radius:50%;width:22px;height:22px;text-align:center;cursor:pointer}
+.ms{display:flex;gap:6px;margin:4px 0 12px;flex-wrap:wrap}.ms span{font-size:26px;cursor:pointer;padding:2px 6px;border-radius:12px}.ms .on{background:var(--y)}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}.day{border:0;background:var(--cream);color:var(--ink);border-radius:12px;padding:10px 0;font:inherit;cursor:pointer;position:relative}.day.sel{background:var(--y);color:#45433E}.day u{position:absolute;bottom:4px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--sage)}
+@media(max-width:760px){body{flex-direction:column-reverse}nav{width:100%;flex-direction:row;padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));overflow-x:auto}nav b{display:none}nav a{padding:8px 11px;font-size:14px}main{padding-bottom:140px}.fab{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script></head><body>
+<nav id="nav"></nav><main id="v"></main>
+<button class="btn fab" id="fab" title="Thêm nhanh">+</button><div id="m"><div class="box" id="mb"></div></div>
+<script>
+// ĐIỀN 2 GIÁ TRỊ SAU TỪ SUPABASE (Project Settings > API). Để trống = chỉ lưu trên máy.
+const SB_URL="https://lrzooggooaumyeqgvjzx.supabase.co",SB_KEY="sb_publishable_WEwGa0gvVgEvkLm9BhtkJw_jZOFEEwt";
+const SBON=!!(SB_URL&&SB_KEY&&window.supabase);let sb=null,S=null,DP=new Set();
+const $=(s,e=document)=>e.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+let D={items:[],name:'',theme:''},Q='',F='',st='',C=null,AS=null,P={};
+const MOODS=['😊','🥰','😌','🤩','😴','😢','😟','✨'];
+const OPT={stat:['Muốn đọc','Đang đọc','Đã đọc','Tạm dừng','Bỏ dở'],prio:['Thấp','Vừa','Cao'],cat:['Du lịch','Gia đình','Bạn bè','Sinh nhật','Nơi yêu thích','Khoảnh khắc nhỏ','Cột mốc'],rate:['Chưa chấm','1','2','3','4','5']};
+const FAV=['fav','Yêu thích ♥','chk'],TG=['tags','Tag (cách nhau bởi dấu phẩy)','txt'],IM=['imgs','Ảnh','img'];
+const T={
+diary:{n:'Nhật ký',i:'📖',f:[['title','Tiêu đề','txt'],['date','Thời gian','dt'],['mood','Tâm trạng','mood'],['body','Hôm nay của bạn','rich'],TG,IM,FAV]},
+memory:{n:'Kỷ niệm',i:'🌼',f:[['title','Tiêu đề','txt'],['date','Ngày','date'],['cat','Danh mục','sel','cat'],['body','Mô tả','rich'],['refl','Cảm nghĩ riêng','area'],TG,IM,FAV]},
+book:{n:'Sách',i:'📚',f:[['title','Tên sách','txt'],['author','Tác giả','txt'],['stat','Trạng thái','sel','stat'],['pages','Tổng số trang','num'],['read','Số trang đã đọc','num'],['rate','Đánh giá (sao)','sel','rate'],['review','Cảm nhận / bài học','area'],['quotes','Trích dẫn yêu thích (mỗi dòng một câu)','area'],['imgs','Bìa sách & ảnh trang sách','img'],['done','Ngày đọc xong','date'],FAV]},
+note:{n:'Ghi chú',i:'📝',f:[['title','Tiêu đề','txt'],['body','Nội dung','rich'],TG,IM,['pin','Ghim lên đầu','chk'],FAV]},
+task:{n:'Việc cần làm',i:'✅',f:[['title','Việc cần làm','txt'],['due','Hạn','date'],['prio','Ưu tiên','sel','prio'],['desc','Mô tả','area'],['rec','Lặp lại','sel','rec'],TG]},
+habit:{n:'Thói quen',i:'🌱',f:[['title','Tên thói quen (ví dụ: Đọc sách 20 phút)','txt']]}};
+OPT.rec=['Không','Hằng ngày','Hằng tuần','Hằng tháng'];
+const NAV=[['home','🏠','Trang chủ'],['diary','📖','Nhật ký'],['memories','🌼','Kỷ niệm'],['library','📚','Thư viện'],['notes','📝','Ghi chú'],['tasks','✅','Việc'],['habits','🌱','Thói quen'],['cal','📅','Lịch'],['tl','🕰️','Dòng thời gian'],['search','🔍','Tìm kiếm'],['cfg','⚙️','Cài đặt']];
+const TYPE={diary:'diary',memories:'memory',library:'book',notes:'note',tasks:'task'};
+// ---- storage (IndexedDB) ----
+const idb=()=>new Promise((ok,no)=>{const r=indexedDB.open('minimal-dairy',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+async function load(){try{const db=await idb();return await new Promise(ok=>{const q=db.transaction('kv').objectStore('kv').get('d');q.onsuccess=()=>ok(q.result);q.onerror=()=>ok(null)})}catch(e){try{return JSON.parse(localStorage.getItem('md'))}catch(e){return null}}}
+let tm;const save=()=>{clearTimeout(tm);tm=setTimeout(flush,400)};
+async function flush(){let a=1,b=1;try{const db=await idb();await new Promise((ok,no)=>{const t=db.transaction('kv','readwrite');t.objectStore('kv').put(D,'d');t.oncomplete=ok;t.onerror=()=>no(t.error)})}catch(e){a=0}
+if(C&&S)b=await push();
+st=C?(b?'Đã lưu vào tài khoản ☁️':a?'Đã lưu trên máy, chưa đồng bộ tài khoản (mục quá lớn hoặc mất mạng)':'⚠ Không lưu được, hãy xuất bản sao lưu'):(a?'Đã lưu trên máy (chưa đăng nhập)':'⚠ Không lưu được, hãy xuất bản sao lưu');const s=$('#st');if(s)s.textContent=st}
+function rm(i){D.items=D.items.filter(x=>x!==i);(D.del=D.del||[]).push(i.id)}
+async function push(){try{const rows=[];for(const i of D.items){i.u=i.u||Date.now();if(P[i.id]!==i.u)rows.push({id:i.id,user_id:S.user.id,data:i,updated_at:i.u,deleted:false})}
+for(const id of D.del||[])if(!DP.has(id))rows.push({id,user_id:S.user.id,data:{},updated_at:Date.now(),deleted:true});
+for(let k=0;k<rows.length;k+=10){const ch=rows.slice(k,k+10),{error}=await sb.from('items').upsert(ch);if(error)throw error;ch.forEach(r=>{if(r.deleted)DP.add(r.id);else P[r.id]=r.updated_at})}return 1}catch(e){return 0}}
+async function sync(){if(!SBON){st='Đã lưu trên máy (chưa bật đồng bộ)';return render()}if(!S)return render();
+try{if(D.uid&&D.uid!==S.user.id)D={items:[],name:'',theme:'',del:[],lp:0,P:{}};D.uid=S.user.id;P=D.P=D.P||{};C=true;
+const lp=D.lp||0;let from=0,mx=lp;const L=new Map(D.items.map(i=>[i.id,i]));
+for(;;){const{data,error}=await sb.from('items').select('id,data,updated_at,deleted').gt('updated_at',lp).order('updated_at').range(from,from+39);if(error)throw error;
+for(const r of data){mx=Math.max(mx,r.updated_at);const l=L.get(r.id);
+if(r.deleted){if(l&&(l.u||0)<=r.updated_at)D.items=D.items.filter(x=>x!==l);D.del=D.del||[];if(!D.del.includes(r.id))D.del.push(r.id);DP.add(r.id)}
+else if(!l){D.items.push(r.data);P[r.id]=r.updated_at}
+else if(r.updated_at>(l.u||0)){Object.assign(l,r.data);P[r.id]=r.updated_at}
+else if(r.updated_at===l.u)P[r.id]=r.updated_at}
+if(data.length<40)break;from+=40}
+D.lp=mx;await flush();render()}catch(e){st='Chưa đồng bộ được, đang lưu trên máy';render()}}
+const loginV=()=>`<div class="card" style="max-width:420px;margin:8vh auto;text-align:center"><h1>Minimal Dairy 🌼</h1><p class="mut">Đăng nhập để dữ liệu đồng bộ an toàn giữa các thiết bị.</p><button class="btn" id="gl" style="width:100%">Đăng nhập với Google</button><p class="mut">hoặc dùng email</p><input id="em" type="email" placeholder="email của bạn"><button class="btn g" id="se" style="width:100%">Gửi mã đăng nhập</button><div id="ot" style="display:none;margin-top:12px"><input id="cd" inputmode="numeric" placeholder="Nhập mã trong email"><button class="btn" id="vc" style="width:100%">Xác nhận</button></div><p class="mut" id="lm"></p></div>`;
+// ---- helpers ----
+const clean=h=>{const d=document.createElement('template');d.innerHTML=h||'';d.content.querySelectorAll('script,iframe,object,embed,style').forEach(e=>e.remove());d.content.querySelectorAll('*').forEach(e=>[...e.attributes].forEach(a=>{if(/^on/i.test(a.name)||/javascript:/i.test(a.value))e.removeAttribute(a.name)}));return d.innerHTML};
+const plain=h=>{const d=document.createElement('div');d.innerHTML=clean(h);return d.textContent||''};
+const txt=i=>plain([i.title,i.author,i.body,i.refl,i.review,i.quotes,i.desc,i.tags,i.cat].join(' ')).toLowerCase();
+const fd=s=>s?new Date(s).toLocaleDateString('vi-VN',{day:'numeric',month:'long',year:'numeric'}):'';
+const ymd=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const tags=i=>(i.tags||'').split(',').map(s=>s.trim()).filter(Boolean).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
+const it=(t)=>D.items.filter(i=>i.t===t),byId=id=>D.items.find(i=>i.id===id);
+const when=i=>i.date||i.due||i.c;
+function card(i){const im=(i.imgs||[])[0],h=i.fav?' ♥':'';
+if(i.t==='memory')return`<div class="card" data-o="${i.id}">${im?`<img src="${im}" alt="">`:''}<div class="pad"><b>${esc(i.title||'Không tên')}${h}</b><div class="mut">${fd(i.date)} ${esc(i.cat||'')}</div></div></div>`;
+if(i.t==='book'){const p=i.pages>0?Math.min(100,Math.round(i.read/i.pages*100)):0;return`<div class="card" data-o="${i.id}">${im?`<img class="cov" src="${im}" alt="">`:'<div class="cov"></div>'}<div style="margin-top:8px"><b>${esc(i.title||'Không tên')}${h}</b><div class="mut">${esc(i.author||'')} · ${OPT.stat[i.stat||0]}</div><div class="pg"><i style="width:${p}%"></i></div><div class="mut">${p}% ${'★'.repeat(i.rate||0)}</div></div></div>`}
+if(i.t==='task')return`<div class="row ${i.done?'done':''}"><input type="checkbox" data-k="${i.id}" ${i.done?'checked':''}><span data-o="${i.id}">${esc(i.title||'Không tên')} <small class="mut">${i.due?'· '+fd(i.due):''} ${i.prio==2?'· ⚑ cao':''} ${i.rec>0?'· ↻':''}</small></span></div>`;
+const ex=plain(i.body).slice(0,140);return`<div class="card" data-o="${i.id}"><div class="mut">${i.t==='diary'?fd(i.date)+' '+(MOODS[i.mood]||''):i.pin?'📌 đã ghim':''}</div><b>${esc(i.title||'Không tên')}${h}</b><p class="mut" style="margin:4px 0">${esc(ex)}</p>${im?`<img src="${im}" alt="" style="width:100%;border-radius:14px;max-height:160px;object-fit:cover">`:''}<div>${tags(i)}</div></div>`}
+function list(t){let a=it(t).filter(i=>!Q||txt(i).includes(Q.toLowerCase()));
+if(t==='book'&&F!=='')a=a.filter(i=>(i.stat||0)==F);
+a.sort((x,y)=>t==='note'?(y.pin?1:0)-(x.pin?1:0)||y.u-x.u:t==='task'?(x.done-y.done)||String(x.due||'9').localeCompare(String(y.due||'9')):String(when(y)).localeCompare(String(when(x))));
+if(!a.length)return`<p class="mut">Chưa có gì ở đây. Bấm “Thêm” để bắt đầu nhé.</p>`;
+const h=a.map(card).join('');return t==='memory'?`<div class="mas">${h}</div>`:t==='task'?`<div class="card">${h}</div>`:`<div class="grid">${h}</div>`}
+function page(r){const t=TYPE[r],T0=T[t];Q='';F='';
+const chips=t==='book'?`<div class="chips">${['Tất cả',...OPT.stat].map((s,k)=>`<button class="btn ${k?'g':''}" data-f="${k?k-1:''}">${s}</button>`).join('')}</div>`:'';
+return`<div class="bar"><h1>${T0.i} ${T0.n}</h1><button class="btn" data-n="${t}">+ Thêm</button></div><input id="q" placeholder="Lọc nhanh…">${chips}<div id="L">${list(t)}</div>`}
+function home(){const h=new Date().getHours(),g=h<11?'Chào buổi sáng':h<18?'Chào buổi chiều':'Chào buổi tối',n=D.name?', '+esc(D.name):'';
+const QS=['Ít ngổn ngang hơn, nhiều ý nghĩa hơn.','Hãy gom lại những khoảnh khắc, đừng chỉ gom thông tin.','Cuộc sống của bạn, được nhớ lại thật đẹp.'];
+const td=ymd(new Date()),dtd=it('diary').filter(i=>(i.date||'').slice(0,10)===td).length,tk=it('task').filter(i=>!i.done&&(!i.due||i.due<=td)),
+rd=it('book').filter(i=>i.stat==1),yr=new Date().getFullYear(),dn=it('book').filter(i=>i.stat==2&&(i.done||'').startsWith(yr)).length,
+md=td.slice(5),mem=it('memory').filter(i=>i.date&&i.date.slice(5)===md&&i.date.slice(0,4)<yr),pick=mem[0]||it('memory')[Math.floor(Math.random()*it('memory').length)],
+rec=[...D.items].sort((a,b)=>b.u-a.u).slice(0,6);
+return`<h1>${g}${n} 🌿</h1><p class="mut">${fd(new Date())} · ${QS[new Date().getDate()%3]}</p>
+<div class="chips">${Object.keys(T).map(t=>`<button class="btn" data-n="${t}">${T[t].i} ${T[t].n}</button>`).join('')}</div>
+<div class="grid"><div class="card"><h3>Hôm nay</h3><p>Nhật ký: ${dtd?`đã viết ${dtd} bài ✓`:'chưa viết'}</p><p>Việc cần làm: ${tk.length}</p><p>Thói quen hôm nay: ${it('habit').filter(h=>(h.log||{})[td]).length}/${it('habit').length}</p><p>Đang đọc: ${rd.length?rd.map(b=>esc(b.title)).join(', '):'—'}</p><p>Sách đã đọc năm ${yr}: ${dn} (tổng ${it('book').filter(i=>i.stat==2).length})</p></div>
+<div class="card"><h3>${mem[0]?'Ngày này năm xưa':'Một kỷ niệm'}</h3>${pick?`<div data-o="${pick.id}" style="cursor:pointer">${(pick.imgs||[])[0]?`<img src="${pick.imgs[0]}" style="width:100%;border-radius:14px;max-height:200px;object-fit:cover" alt="">`:''}<b>${esc(pick.title)}</b><div class="mut">${fd(pick.date)}</div></div>`:'<p class="mut">Hãy lưu kỷ niệm đầu tiên.</p>'}</div></div>
+<h3 style="margin:22px 0 10px">Mới cập nhật</h3>${rec.length?`<div class="grid">${rec.filter(i=>i.t!=='task'&&i.t!=='habit').map(card).join('')}</div>`:'<p class="mut">Chưa có nội dung.</p>'}`}
+function search(){return`<h1>🔍 Tìm kiếm</h1><br><input id="gq" placeholder="Tìm trong tất cả nội dung…"><div class="chips">${[['','Tất cả'],...Object.keys(T).map(t=>[t,T[t].n])].map(([k,l])=>`<button class="btn ${k?'g':''}" data-ft="${k}">${l}</button>`).join('')}<button class="btn g" data-ft="fav">♥ Yêu thích</button></div><div id="L"></div>`}
+let FT='';function gs(){const q=($('#gq')||{}).value||'',a=D.items.filter(i=>(!FT||(FT==='fav'?i.fav:i.t===FT))&&(!q||txt(i).includes(q.toLowerCase()))).sort((x,y)=>y.u-x.u);$('#L').innerHTML=a.length?`<div class="grid">${a.map(i=>i.t==='task'?`<div class="card" data-o="${i.id}">✅ ${esc(i.title)}</div>`:card(i)).join('')}</div>`:'<p class="mut">Không tìm thấy gì.</p>'}
+function cfg(){const sz=(JSON.stringify(D).length/1048576).toFixed(2);return`<h1>⚙️ Cài đặt</h1><br><div class="card"><label>Tên của bạn</label><input id="nm" value="${esc(D.name)}"><label>Giao diện</label><select id="th"><option value="">Theo thiết bị</option><option value="light">Sáng</option><option value="dark">Tối</option></select></div><br>
+${SBON&&S?`<div class="card"><h3>Tài khoản</h3><p class="mut">${esc(S.user.email)} · dữ liệu đồng bộ giữa các thiết bị</p><button class="btn g" id="so">Đăng xuất</button></div><br>`:''}<div class="card"><h3>Sao lưu dữ liệu</h3><p class="mut">Dữ liệu nằm trong trình duyệt này (IndexedDB), ${D.items.length} mục, khoảng ${sz} MB. Hãy xuất bản sao lưu thường xuyên để không mất dữ liệu khi xóa dữ liệu trình duyệt hoặc đổi máy.</p><button class="btn" id="ex">Xuất JSON (đầy đủ)</button> <button class="btn g" id="exm">Xuất Markdown</button> <button class="btn g" id="exc">Xuất CSV</button> <button class="btn" id="exz">Xuất kèm ảnh (ZIP)</button><p><label>Nhập từ file JSON hoặc ZIP (gộp vào dữ liệu hiện có)</label><input type="file" id="im" accept=".json,.zip"></p></div>`}
+let CM=new Date(),CD=ymd(new Date()),TY='',TMo='';CM.setDate(1);
+function cal(){const y=CM.getFullYear(),m=CM.getMonth(),first=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate(),mk={};
+D.items.forEach(i=>{if(i.t==='diary'||i.t==='memory'){const d=(i.date||'').slice(0,10);if(d)(mk[d]=mk[d]||[]).push(i)}});
+let c='';for(let k=0;k<first;k++)c+='<i></i>';
+for(let d=1;d<=days;d++){const s=ymd(new Date(y,m,d));c+=`<button class="day ${s===CD?'sel':''}" data-day="${s}">${d}${mk[s]?'<u></u>':''}</button>`}
+const sel=mk[CD]||[];
+return`<div class="bar"><h1>📅 Lịch</h1><div><button class="btn g" data-cm="-1">‹</button> <b>Tháng ${m+1}/${y}</b> <button class="btn g" data-cm="1">›</button></div></div><div class="card"><div class="cg">${['T2','T3','T4','T5','T6','T7','CN'].map(x=>`<small class="mut">${x}</small>`).join('')}${c}</div></div><div class="bar" style="margin-top:18px"><h3>${fd(CD)}</h3><button class="btn" data-nd="${CD}">+ Viết nhật ký ngày này</button></div>${sel.length?`<div class="grid">${sel.map(card).join('')}</div>`:'<p class="mut">Chưa có gì trong ngày này.</p>'}`}
+function tl(){const ev=[];D.items.forEach(i=>{if(i.t==='diary'||i.t==='memory')ev.push([(i.date||'').slice(0,10),i]);else if(i.t==='book'&&i.stat==2&&i.done)ev.push([i.done,i])});
+ev.sort((a,b)=>b[0].localeCompare(a[0]));const ys=[...new Set(ev.map(e=>e[0].slice(0,4)).filter(Boolean))],f=ev.filter(e=>e[0]&&(!TY||e[0].startsWith(TY))&&(!TMo||e[0].slice(5,7)===TMo));
+let out='',last='';f.forEach(([d,i])=>{const k=d.slice(0,7);if(k!==last){last=k;out+=`<h3 style="margin:20px 0 8px">Tháng ${+k.slice(5)}/${k.slice(0,4)}</h3>`}out+=`<div class="row" data-o="${i.id}" style="cursor:pointer"><span class="mut" style="flex:none;width:60px">${d.slice(8)}/${d.slice(5,7)}</span><span>${T[i.t].i} ${esc(i.title||'Không tên')}${i.t==='book'?' (đã đọc xong)':''}</span></div>`});
+return`<h1>🕰️ Dòng thời gian</h1><br><div class="chips"><select id="ty" style="width:auto"><option value="">Mọi năm</option>${ys.map(y=>`<option ${y===TY?'selected':''}>${y}</option>`).join('')}</select><select id="tm" style="width:auto"><option value="">Mọi tháng</option>${Array.from({length:12},(_,k)=>{const v=String(k+1).padStart(2,'0');return`<option value="${v}" ${v===TMo?'selected':''}>Tháng ${k+1}</option>`}).join('')}</select></div>${out||'<p class="mut">Chưa có gì để hiển thị.</p>'}`}
+function habits(){const hs=it('habit'),ds=[...Array(7)].map((_,k)=>{const d=new Date();d.setDate(d.getDate()-6+k);return d}),td=new Date(),dim=td.getDate(),pre=ymd(td).slice(0,7);
+return`<div class="bar"><h1>🌱 Thói quen</h1><button class="btn" data-n="habit">+ Thêm</button></div>`+(hs.length?hs.map(h=>{const lg=h.log||{},mc=Object.keys(lg).filter(k=>k.startsWith(pre)).length;let sk=0;for(let k=0;k<400;k++){const d=new Date();d.setDate(d.getDate()-k);if(lg[ymd(d)])sk++;else if(k)break}
+return`<div class="card" style="margin-bottom:14px"><div class="bar" style="margin-bottom:8px"><b data-o="${h.id}" style="cursor:pointer">${esc(h.title||'Không tên')}</b><span class="mut">${sk?'🔥 '+sk+' ngày liên tiếp':'Bắt đầu lại từ hôm nay nhé'}</span></div><div style="display:flex;gap:6px;flex-wrap:wrap">${ds.map(d=>{const s=ymd(d);return`<div style="text-align:center"><small class="mut">${['CN','T2','T3','T4','T5','T6','T7'][d.getDay()]}<br>${d.getDate()}</small><br><button class="day ${lg[s]?'sel':''}" data-hb="${h.id}|${s}" style="width:38px">${lg[s]?'✓':'·'}</button></div>`}).join('')}</div><div class="pg"><i style="width:${Math.round(mc/dim*100)}%"></i></div><div class="mut">Tháng này: ${mc}/${dim} ngày</div></div>`}).join(''):'<p class="mut">Chưa có thói quen nào. Bấm “Thêm” để bắt đầu nhẹ nhàng nhé.</p>')}
+const VIEW={home,search,cfg,habits,cal,tl};
+function render(){const r=location.hash.slice(1)||'home';const lo=SBON&&!S;$('#nav').style.display=lo?'none':'';$('#fab').style.display=lo?'none':'';if(lo){$('#v').innerHTML=loginV();return}$('#nav').innerHTML='<b>Minimal Dairy</b>'+NAV.map(([k,i,l])=>`<a class="${k===r?'on':''}" href="#${k}">${i} ${l}</a>`).join('')+`<span class="mut" id="st" style="padding:10px 12px">${st}</span>`;
+$('#v').innerHTML=VIEW[r]?VIEW[r]():TYPE[r]?page(r):home();if(r==='cfg')$('#th').value=D.theme||'';if(r==='search')gs();document.documentElement.dataset.theme=D.theme||''}
+// ---- editor ----
+let cur=null;
+function openEdit(id){cur=byId(id);if(!cur)return;const t=T[cur.t];
+$('#mb').innerHTML=`<div class="bar"><h2>${t.i} ${t.n}</h2><span class="mut" id="ms2"></span></div>`+t.f.map(([k,l,ty,o])=>{const v=cur[k];let c='';
+if(ty==='txt')c=`<input data-k="${k}" value="${esc(v)}">`;
+else if(ty==='num')c=`<input type="number" min="0" data-k="${k}" value="${esc(v)}">`;
+else if(ty==='date')c=`<input type="date" data-k="${k}" value="${esc(v)}">`;
+else if(ty==='dt')c=`<input type="datetime-local" data-k="${k}" value="${esc(v)}">`;
+else if(ty==='area')c=`<textarea data-k="${k}">${esc(v)}</textarea>`;
+else if(ty==='sel')c=`<select data-k="${k}">${OPT[o].map((x,n)=>`<option value="${n}" ${n==(v||0)?'selected':''}>${x}</option>`).join('')}</select>`;
+else if(ty==='chk')return`<label><input type="checkbox" style="width:auto;margin:0 6px 12px 0" data-k="${k}" ${v?'checked':''}>${l}</label><br>`;
+else if(ty==='mood')c=`<div class="ms">${MOODS.map((m,n)=>`<span data-md="${n}" class="${v===n?'on':''}">${m}</span>`).join('')}</div>`;
+else if(ty==='rich')c=`<div class="tb"><button class="btn g" data-c="bold"><b>B</b></button><button class="btn g" data-c="italic"><i>I</i></button><button class="btn g" data-c="insertUnorderedList">•</button></div><div class="rich" contenteditable data-k="${k}">${clean(v)}</div>`;
+else if(ty==='img')c=`<div class="th" id="th2"></div><input type="file" accept="image/*" multiple id="fi">`;
+return`<label>${l}</label>${c}`}).join('')+`<div class="bar"><button class="btn d" id="del">Xóa</button><button class="btn" id="cl">Xong</button></div>`;
+$('#m').classList.add('on');ths()}
+const ths=()=>{const e=$('#th2');if(e)e.innerHTML=(cur.imgs||[]).map((s,n)=>`<div><img src="${s}" alt=""><b data-ri="${n}">×</b></div>`).join('')};
+const touch=()=>{cur.u=Date.now();delete cur.nw;save();const e=$('#ms2');if(e)e.textContent='Đang tự động lưu…'};
+function closeEdit(){if(cur){const e=!cur.title&&!plain(cur.body).trim()&&!(cur.imgs||[]).length&&!cur.review;if(cur.nw&&e)rm(cur);flush()}cur=null;$('#m').classList.remove('on');render()}
+function newItem(t){const n=new Date(),i={id:uid(),t,c:n.toISOString(),u:Date.now(),nw:1};if(t==='diary')i.date=new Date(n.getTime()-n.getTimezoneOffset()*6e4).toISOString().slice(0,16);else if(t==='memory')i.date=ymd(n);D.items.push(i);openEdit(i.id)}
+function img(file){return new Promise(ok=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,(AS?1600:900)/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);{if(AS)c.toBlob(async b=>{try{ok((await AS.upload(b,{type:'image/jpeg'})).url)}catch(e){ok(c.toDataURL('image/jpeg',.7))}},'image/jpeg',.85);else ok(c.toDataURL('image/jpeg',.7))}};im.onerror=()=>ok(null);im.src=r.result};r.readAsDataURL(file)})}
+// ---- events ----
+document.addEventListener('click',async e=>{const g=s=>e.target.closest(s);let x;
+if(g('#gl'))return sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});
+if(g('#se')){const em=$('#em').value.trim();if(!em)return;const{error}=await sb.auth.signInWithOtp({email:em});$('#lm').textContent=error?'Lỗi: '+error.message:'Đã gửi mã tới email. Nhập mã bên dưới.';if(!error)$('#ot').style.display='block';return}
+if(g('#vc')){const{data,error}=await sb.auth.verifyOtp({email:$('#em').value.trim(),token:$('#cd').value.trim(),type:'email'});if(error)return $('#lm').textContent='Mã chưa đúng: '+error.message;S=data.session;return sync()}
+if(g('#so')){await flush();await sb.auth.signOut();D={items:[],name:'',theme:'',del:[],lp:0,P:{}};P=D.P;C=null;DP=new Set();await flush();return render()}
+if(g('#fab'))return qa();
+if(x=g('[data-n]')){$('#m').classList.contains('on')&&0;return newItem(x.dataset.n)}
+if(x=g('[data-o]'))return openEdit(x.dataset.o);
+if(x=g('[data-hb]')){const[a,b]=x.dataset.hb.split('|'),h=byId(a);h.log=h.log||{};if(h.log[b])delete h.log[b];else h.log[b]=1;h.u=Date.now();save();return render()}
+if(x=g('[data-cm]')){CM.setMonth(CM.getMonth()+ +x.dataset.cm);return render()}
+if(x=g('[data-day]')){CD=x.dataset.day;return render()}
+if(x=g('[data-nd]')){newItem('diary');cur.date=x.dataset.nd+'T'+cur.date.slice(11);save();return openEdit(cur.id)}
+if(x=g('[data-md]')){cur.mood=+x.dataset.md;touch();return openEdit(cur.id)}
+if(x=g('[data-c]')){e.preventDefault();return document.execCommand(x.dataset.c)}
+if(x=g('[data-ri]')){cur.imgs.splice(+x.dataset.ri,1);touch();return ths()}
+if(x=g('[data-f]')){F=x.dataset.f;document.querySelectorAll('[data-f]').forEach(b=>b.classList.toggle('g',b!==x));return $('#L').innerHTML=list('book')}
+if(x=g('[data-ft]')){FT=x.dataset.ft;document.querySelectorAll('[data-ft]').forEach(b=>b.classList.toggle('g',b!==x));return gs()}
+if(g('#cl'))return closeEdit();
+if(g('#del')){if(confirm('Xóa mục này? Thao tác này không thể hoàn tác.')){rm(cur);cur=null;flush();$('#m').classList.remove('on');render()}return}
+if(e.target.id==='m')return closeEdit();
+if(g('#ex'))return dl('minimal-dairy-backup.json',JSON.stringify(D));
+if(g('#exm'))return dl('minimal-dairy.md',D.items.filter(i=>i.t!=='task'&&i.t!=='habit').map(i=>`## ${i.title||'Không tên'}\n*${i.t} · ${when(i)||''}*\n\n${plain(i.body||i.review||'')}\n${i.refl||''}\n${i.quotes||''}\n`).join('\n'));
+if(g('#exz'))return zipEx();
+if(g('#exc'))return dl('minimal-dairy.csv','\ufefftype,title,date,tags,done\n'+D.items.map(i=>[i.t,i.title,when(i),i.tags,i.done?1:0].map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n'))});
+async function dl(name,data){try{const d=typeof claude!=='undefined'?await claude.use('downloads'):null;if(!d&&typeof claude==='undefined'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=name;a.click();return}if(!d)return alert('Tải xuống không khả dụng ở đây.');await d.save({filename:name,data:new Blob([data])})}catch(e){if(e&&e.code!=='declined')alert('Không xuất được: '+(e.message||e))}}
+async function zipEx(){if(!window.JSZip)return alert('Chưa tải được thư viện nén, hãy thử lại sau.');const z=new JSZip(),c=JSON.parse(JSON.stringify(D));let n=0,bad=0;
+for(const i of c.items)if(i.imgs)for(let k=0;k<i.imgs.length;k++){try{const b=await(await fetch(i.imgs[k])).blob();z.file('images/'+(++n)+'.jpg',b);i.imgs[k]='images/'+n+'.jpg'}catch(e){bad++}}
+z.file('backup.json',JSON.stringify(c));if(bad)alert(bad+' ảnh không tải được, giữ nguyên đường dẫn cũ trong bản sao lưu.');
+dl('minimal-dairy-backup.zip',await z.generateAsync({type:'blob'}))}
+async function up(b){if(AS)try{return(await AS.upload(b,{type:'image/jpeg'})).url}catch(e){}return new Promise(ok=>{const r=new FileReader();r.onload=()=>ok(r.result);r.readAsDataURL(b)})}
+function qa(){$('#mb').innerHTML='<h2>Thêm nhanh</h2><br><div class="chips">'+Object.keys(T).map(t=>`<button class="btn" data-n="${t}">${T[t].i} ${T[t].n}</button>`).join('')+'</div><button class="btn g" id="cl">Đóng</button>';$('#m').classList.add('on')}
+document.addEventListener('input',async e=>{const el=e.target;
+if(el.id==='q'){Q=el.value;return $('#L').innerHTML=list(TYPE[location.hash.slice(1)])}
+if(el.id==='gq')return gs();
+if(el.id==='nm'){D.name=el.value;return save()}
+if(el.id==='fi'){for(const f of el.files){const s=await img(f);if(s)(cur.imgs=cur.imgs||[]).push(s)}el.value='';touch();return ths()}
+if(cur&&el.dataset.k){const k=el.dataset.k;cur[k]=el.isContentEditable?el.innerHTML:el.type==='checkbox'?el.checked:el.tagName==='SELECT'?+el.value:el.type==='number'?+el.value:el.value;touch()}});
+document.addEventListener('change',async e=>{const el=e.target;
+if(el.id==='ty'){TY=el.value;return render()}
+if(el.id==='tm'){TMo=el.value;return render()}
+if(el.id==='th'){D.theme=el.value;save();return render()}
+if(el.dataset.k&&el.type==='checkbox'&&!cur){const i=byId(el.dataset.k);if(i){if(el.checked&&i.rec>0&&i.due){const d=new Date(i.due),n=[0,1,7,0][i.rec];i.rec==3?d.setMonth(d.getMonth()+1):d.setDate(d.getDate()+n);i.due=ymd(d)}else i.done=el.checked;i.u=Date.now();save();render()}}
+if(el.id==='im'&&el.files[0]){try{let j;const f=el.files[0];if(/\.zip$/i.test(f.name)){const z=await JSZip.loadAsync(f);j=JSON.parse(await z.file('backup.json').async('string'));for(const i of j.items||[])if(!byId(i.id)&&i.imgs)for(let k=0;k<i.imgs.length;k++)if(/^images\//.test(i.imgs[k])){const b=await z.file(i.imgs[k]).async('blob');i.imgs[k]=await up(b)}}else j=JSON.parse(await f.text());if(!Array.isArray(j.items))throw 0;const have=new Set(D.items.map(i=>i.id));let n=0;j.items.forEach(i=>{if(i&&i.id&&T[i.t]&&!have.has(i.id)){D.items.push(i);n++}});await flush();alert('Đã nhập '+n+' mục mới.');render()}catch(x){alert('File không hợp lệ, dữ liệu hiện tại không bị thay đổi.')}}});
+window.addEventListener('hashchange',render);
+window.addEventListener('beforeunload',()=>{if(cur)flush()});
+(async()=>{const d=await load();if(d&&Array.isArray(d.items))D=d;try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}if(SBON){sb=supabase.createClient(SB_URL,SB_KEY,{auth:{flowType:'pkce'}});const r=await sb.auth.getSession();S=r.data.session;if(location.search.includes('code=')||location.search.includes('error'))history.replaceState({},'',location.pathname+location.hash);sb.auth.onAuthStateChange((ev,x)=>{S=x;if(ev==='SIGNED_OUT'){C=null;render()}})}P=D.P=D.P||{};render();sync();document.addEventListener('visibilitychange',()=>{if(!document.hidden&&C)sync()})})();
+</script></body></html>
