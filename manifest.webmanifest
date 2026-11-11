@@ -1,14 +1,14 @@
 {
  "id": "./",
- "name": "Minimal Dairy",
- "short_name": "Minimal Dairy",
+ "name": "Minimal Diary",
+ "short_name": "Minimal Diary",
  "description": "Góc nhỏ để lưu nhật ký, kỷ niệm, sách, nhạc và việc học của bạn.",
  "lang": "vi",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
  "orientation": "any",
- "background_color": "#FFFEFA",
+ "background_color": "#EFE4D7",
  "theme_color": "#FFF9EF",
  "categories": [
   "lifestyle",
