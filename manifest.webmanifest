@@ -1,0 +1,37 @@
+{
+ "id": "./",
+ "name": "Minimal Dairy",
+ "short_name": "Minimal Dairy",
+ "description": "Góc nhỏ để lưu nhật ký, kỷ niệm, sách, nhạc và việc học của bạn.",
+ "lang": "vi",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "any",
+ "background_color": "#FFFEFA",
+ "theme_color": "#FFF9EF",
+ "categories": [
+  "lifestyle",
+  "productivity"
+ ],
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
